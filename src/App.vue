@@ -113,22 +113,7 @@ import { ref, onMounted, nextTick } from 'vue'
 import type { Ref } from 'vue'
 import { Loading, Check } from '@element-plus/icons-vue'
 import TaskDetail from './components/TaskDetail.vue'
-
-// 类型定义
-export interface Task {
-  id: number
-  title: string
-  status: string
-  description: string
-  subtasks?: Task[]
-}
-
-export interface TaskGroup {
-  id: number
-  title: string
-  description: string
-  tasks: Task[]
-}
+import type { Task, TaskGroup } from './types'
 
 // 待处理的任务数据
 const pendingTaskGroups: TaskGroup[] = [
@@ -374,7 +359,7 @@ const completedTaskGroups: TaskGroup[] = [
 ]
 
 // 响应式状态
-const messages = ref<Array<{type: string, content: string}>>([])
+const messages = ref<Array<{type: string, content: string, role?: string}>>([])
 const userInput = ref('')
 const taskGroups = ref<TaskGroup[]>([])
 const chatContainer = ref<HTMLElement | null>(null)
