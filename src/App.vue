@@ -494,6 +494,18 @@ const addTaskDetailToChat = (message: string) => {
 
 // 生命周期钩子
 onMounted(() => {
+  // 添加全局错误处理
+  window.onerror = function(message, source, lineno, colno, error) {
+    console.error('Global error:', { message, source, lineno, colno, error });
+    ElMessage.error(`加载出错：${message}`);
+  };
+
+  // 添加未处理的 Promise 错误处理
+  window.addEventListener('unhandledrejection', function(event) {
+    console.error('Unhandled promise rejection:', event.reason);
+    ElMessage.error(`Promise 错误：${event.reason}`);
+  });
+
   // 初始化时只显示已完成的任务
   taskGroups.value = [...completedTaskGroups]
   
@@ -501,6 +513,10 @@ onMounted(() => {
     type: 'normal',
     content: '您好！我是您的AI电商助手。距离双十一大促还有不到一个月的时间，我可以帮您制定活动方案、优化运营策略、协调资源调配等。请告诉我您需要什么帮助？'
   })
+
+  // 添加版本信息
+  console.log('App version:', import.meta.env.VITE_APP_VERSION);
+  console.log('Environment:', import.meta.env.MODE);
 })
 
 // 暴露属性和方法
