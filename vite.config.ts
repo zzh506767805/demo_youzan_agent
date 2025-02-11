@@ -14,20 +14,26 @@ export default defineConfig({
           'element-plus': ['ElMessage']
         }
       ],
-      dts: 'src/auto-imports.d.ts',
+      dts: true,
       resolvers: [ElementPlusResolver()],
-      vueTemplate: true,
-      defaultExportByFilename: true,
-      dirs: ['src/composables/**'],
-      eslintrc: {
-        enabled: true,
-      }
+      vueTemplate: true
     }),
     Components({
       resolvers: [ElementPlusResolver()],
-      dts: 'src/components.d.ts',
+      dts: true,
     }),
   ],
+  build: {
+    chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'element-plus': ['element-plus'],
+          'vue': ['vue']
+        }
+      }
+    }
+  },
   server: {
     port: 5174,
     open: true
