@@ -66,7 +66,7 @@
         <div class="button-group">
           <el-button @click="dialogVisible = false">关闭</el-button>
           <el-button type="primary" @click="addToChat">
-            评论并添加到会话
+            添加对齐
           </el-button>
         </div>
       </div>

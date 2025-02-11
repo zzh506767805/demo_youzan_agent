@@ -19,19 +19,184 @@
                 <div v-for="(msg, index) in messages" :key="index" 
                      :class="['message', msg.role]">
                   <template v-if="msg.type === 'thinking'">
-                    <div class="thinking-message">
+                    <div class="thinking-message" @click="toggleThinkingDetail(index)">
                       <el-icon class="thinking-icon"><Loading /></el-icon>
                       {{ msg.content }}
+                      <el-icon class="expand-icon" :class="{ 'is-expanded': msg.isExpanded }">
+                        <ArrowDown />
+                      </el-icon>
+                      <div v-if="msg.isExpanded" class="thinking-detail">
+                        <div class="thinking-step">
+                          <div class="step-title">数据分析</div>
+                          <div class="step-content">
+                            <template v-if="msg.type === 'thinking'">
+                              我正在分析您店铺近3个月的数据...发现上个双十一期间爆款商品的转化率达到15%，远高于平常的5%。所以今年我们要重点关注这些商品的库存和价格策略...
+                            </template>
+                            <template v-else>
+                              ✓ 通过分析发现，您店铺的优势品类是美妆和服饰，其中口红和连衣裙的复购率最高。建议在这两个品类重点发力，可以带动整体销售增长。
+                            </template>
+                          </div>
+                        </div>
+                        <div class="thinking-step">
+                          <div class="step-title">竞品对标</div>
+                          <div class="step-content">
+                            <template v-if="msg.type === 'thinking'">
+                              看到竞争对手已经开始预热了，他们主打"买贵必赔"策略...这个力度不小，我们需要想办法差异化...正在思考更有竞争力的方案...
+                            </template>
+                            <template v-else>
+                              ✓ 分析了TOP3竞品的活动策略，他们都主打价格战。我们可以突出"品质+服务"差异，推出"品质联盟"和"极速达"服务，这样能避免陷入价格战。
+                            </template>
+                          </div>
+                        </div>
+                        <div class="thinking-step">
+                          <div class="step-title">方案优化</div>
+                          <div class="step-content">
+                            <template v-if="msg.type === 'thinking'">
+                              结合数据和竞品分析，我在思考如何平衡利润和增长...正在测算各种促销方案的ROI...看起来"满减+积分翻倍"的组合效果最好...
+                            </template>
+                            <template v-else>
+                              ✓ 最终敲定了"满减+积分翻倍+品质联盟"的组合策略。这样既能确保15%以上的毛利，又能提供有竞争力的价格，预计可以带来50%的GMV增长。
+                            </template>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </template>
                   <template v-else-if="msg.type === 'completed'">
-                    <div class="thinking-message">
+                    <div class="thinking-message" @click="toggleThinkingDetail(index)">
                       <el-icon class="success-icon"><Check /></el-icon>
                       {{ msg.content }}
+                      <el-icon class="expand-icon" :class="{ 'is-expanded': msg.isExpanded }">
+                        <ArrowDown />
+                      </el-icon>
+                      <div v-if="msg.isExpanded" class="thinking-detail">
+                        <div class="thinking-step">
+                          <div class="step-title">数据分析</div>
+                          <div class="step-content">
+                            <template v-if="msg.type === 'thinking'">
+                              我正在分析您店铺近3个月的数据...发现上个双十一期间爆款商品的转化率达到15%，远高于平常的5%。所以今年我们要重点关注这些商品的库存和价格策略...
+                            </template>
+                            <template v-else>
+                              ✓ 通过分析发现，您店铺的优势品类是美妆和服饰，其中口红和连衣裙的复购率最高。建议在这两个品类重点发力，可以带动整体销售增长。
+                            </template>
+                          </div>
+                        </div>
+                        <div class="thinking-step">
+                          <div class="step-title">竞品对标</div>
+                          <div class="step-content">
+                            <template v-if="msg.type === 'thinking'">
+                              看到竞争对手已经开始预热了，他们主打"买贵必赔"策略...这个力度不小，我们需要想办法差异化...正在思考更有竞争力的方案...
+                            </template>
+                            <template v-else>
+                              ✓ 分析了TOP3竞品的活动策略，他们都主打价格战。我们可以突出"品质+服务"差异，推出"品质联盟"和"极速达"服务，这样能避免陷入价格战。
+                            </template>
+                          </div>
+                        </div>
+                        <div class="thinking-step">
+                          <div class="step-title">方案优化</div>
+                          <div class="step-content">
+                            <template v-if="msg.type === 'thinking'">
+                              结合数据和竞品分析，我在思考如何平衡利润和增长...正在测算各种促销方案的ROI...看起来"满减+积分翻倍"的组合效果最好...
+                            </template>
+                            <template v-else>
+                              ✓ 最终敲定了"满减+积分翻倍+品质联盟"的组合策略。这样既能确保15%以上的毛利，又能提供有竞争力的价格，预计可以带来50%的GMV增长。
+                            </template>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </template>
                   <template v-else>
-                    {{ msg.content }}
+                    <div class="message-content">
+                      <template v-if="msg.role === 'assistant' && msg.content.includes('【主会场活动】')">
+                        <div class="task-cards">
+                          <div class="task-intro">关于双十一主会场的活动规划，我们重点打造了三重权益叠加的活动机制。通过限时特惠、满减和积分激励，全方位提升用户的购物体验：</div>
+                          <div class="task-card" @click="handleTaskCardClick('主会场活动机制')">
+                            <h4>主会场活动</h4>
+                            <div class="task-card-items">
+                              <div class="task-card-item">
+                                <div class="item-title">限时秒杀</div>
+                                <div class="item-desc">整点准时开抢，手快有，手慢无，限量100件哦</div>
+                              </div>
+                              <div class="task-card-item">
+                                <div class="item-title">满减优惠</div>
+                                <div class="item-desc">买得多省得多，最高可省500元呢</div>
+                              </div>
+                              <div class="task-card-item">
+                                <div class="item-title">积分翻倍</div>
+                                <div class="item-desc">下单就送双倍积分，囤货好时机</div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="task-intro">在直播运营方面，我们将全天候为用户带来优质内容。根据用户的购物习惯，我们特别策划了以下重点场次：</div>
+                          <div class="task-card" @click="handleTaskCardClick('直播运营计划')">
+                            <h4>直播运营</h4>
+                            <div class="task-card-items">
+                              <div class="task-card-item">
+                                <div class="item-title">重点场次</div>
+                                <div class="item-desc">0点开抢、早10点上班族专场、晚8点压轴好戏</div>
+                              </div>
+                              <div class="task-card-item">
+                                <div class="item-title">主播资源</div>
+                                <div class="item-desc">王牌主播轮番上阵，带货实力杠杠的</div>
+                              </div>
+                              <div class="task-card-item">
+                                <div class="item-title">商品上架</div>
+                                <div class="item-desc">爆品好货不断，一波接一波</div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="task-intro">为确保活动效果最大化，我们制定了完整的预热方案。从预售到正式开启，每个环节都经过精心安排：</div>
+                          <div class="task-card" @click="handleTaskCardClick('预热活动安排')">
+                            <h4>预热活动</h4>
+                            <div class="task-card-items">
+                              <div class="task-card-item">
+                                <div class="item-title">预售开启</div>
+                                <div class="item-desc">10月25日开抢，提前加购更优惠</div>
+                              </div>
+                              <div class="task-card-item">
+                                <div class="item-title">直播预告</div>
+                                <div class="item-desc">10月31日剧透好物，先睹为快</div>
+                              </div>
+                              <div class="task-card-item">
+                                <div class="item-title">店铺改版</div>
+                                <div class="item-desc">11月1日焕新亮相，惊喜满满</div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="task-intro">针对大促期间的服务保障，我们从人力配置到物流支持都做了全面升级，具体包含以下几个方面：</div>
+                          <div class="task-card" @click="handleTaskCardClick('售后保障计划')">
+                            <h4>售后保障</h4>
+                            <div class="task-card-items">
+                              <div class="task-card-item">
+                                <div class="item-title">客服扩充</div>
+                                <div class="item-desc">客服小姐姐增援50%，响应更快啦</div>
+                              </div>
+                              <div class="task-card-item">
+                                <div class="item-title">物流优化</div>
+                                <div class="item-desc">三大快递强强联手，送货更给力</div>
+                              </div>
+                              <div class="task-card-item">
+                                <div class="item-title">退换无忧</div>
+                                <div class="item-desc">7天无理由退换，购物更放心</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </template>
+                      <template v-else>
+                        {{ msg.content }}
+                      </template>
+                    </div>
+                    <div v-if="showAlignButton && index === messages.length - 1" 
+                         class="align-button">
+                      <el-button type="primary" @click="startAlign">
+                        开始对齐
+                      </el-button>
+                    </div>
                   </template>
                 </div>
               </div>
@@ -111,7 +276,7 @@
 <script setup lang="ts">
 import { ref, onMounted, nextTick } from 'vue'
 import type { Ref } from 'vue'
-import { Loading, Check } from '@element-plus/icons-vue'
+import { Loading, Check, ArrowDown } from '@element-plus/icons-vue'
 import TaskDetail from './components/TaskDetail.vue'
 import type { Task, TaskGroup } from './types'
 
@@ -123,42 +288,106 @@ const pendingTaskGroups: TaskGroup[] = [
     description: '双十一活动整体规划与执行',
     tasks: [
       {
-        id: Date.now() - 1000,
-        title: '双十一预热活动策划',
-        status: '已完成',
-        description: '制定双十一预热期间的活动方案和预算规划',
+        id: Date.now(),
+        title: '主会场活动机制',
+        status: '待确认',
+        description: '设计主会场的活动机制和优惠方案',
         subtasks: [
           {
-            id: Date.now() - 999,
-            title: '直播预告策划',
-            status: '已完成',
-            description: '规划双十一期间的直播场次和主题'
+            id: Date.now() + 1,
+            title: '限时秒杀设置',
+            status: '待确认',
+            description: '每整点开启秒杀活动，限量100件'
           },
           {
-            id: Date.now() - 998,
-            title: '预售商品选品',
-            status: '已完成',
-            description: '筛选双十一预售的主推商品和价格策略'
+            id: Date.now() + 2,
+            title: '满减优惠方案',
+            status: '待确认',
+            description: '设置满1000减100，最高减500的优惠'
+          },
+          {
+            id: Date.now() + 3,
+            title: '积分奖励机制',
+            status: '待确认',
+            description: '下单可得2倍积分'
           }
         ]
       },
       {
-        id: Date.now(),
-        title: '双十一主会场筹备',
+        id: Date.now() + 100,
+        title: '直播运营计划',
         status: '待确认',
-        description: '策划双十一当天的主会场活动和玩法设计',
+        description: '策划全天24场直播的排期和资源配置',
         subtasks: [
           {
-            id: Date.now() + 1,
-            title: '会场活动规划',
+            id: Date.now() + 101,
+            title: '重点场次安排',
             status: '待确认',
-            description: '设计主会场的活动机制和奖励方案'
+            description: '0点开门红、早10点上班族专场、晚8点黄金档'
           },
           {
-            id: Date.now() + 2,
-            title: '流量分配方案',
+            id: Date.now() + 102,
+            title: '主播排期',
             status: '待确认',
-            description: '制定各时段的流量投放策略和预算分配'
+            description: '安排主播档期和直播间资源'
+          },
+          {
+            id: Date.now() + 103,
+            title: '商品上架计划',
+            status: '待确认',
+            description: '制定商品上架节奏和库存预警机制'
+          }
+        ]
+      },
+      {
+        id: Date.now() + 200,
+        title: '预热活动安排',
+        status: '待确认',
+        description: '制定双十一预热期间的活动节奏',
+        subtasks: [
+          {
+            id: Date.now() + 201,
+            title: '预售活动',
+            status: '待确认',
+            description: '10月25日开启预售活动'
+          },
+          {
+            id: Date.now() + 202,
+            title: '直播预告',
+            status: '待确认',
+            description: '10月31日发布直播预告'
+          },
+          {
+            id: Date.now() + 203,
+            title: '店铺改版',
+            status: '待确认',
+            description: '11月1日上线双十一主题店铺改版'
+          }
+        ]
+      },
+      {
+        id: Date.now() + 300,
+        title: '售后保障计划',
+        status: '待确认',
+        description: '制定完善的售后服务保障方案',
+        subtasks: [
+          {
+            id: Date.now() + 301,
+            title: '客服人力扩充',
+            status: '待确认',
+            description: '临时增加50%客服人力'
+          },
+          {
+            id: Date.now() + 302,
+            title: '物流优化',
+            status: '待确认',
+            description: '与三家快递公司达成配送协议'
+          },
+          {
+            id: Date.now() + 303,
+            title: '退换货政策',
+            status: '待确认',
+            description: '执行7天无理由退换货政策'
           }
         ]
       }
@@ -359,19 +588,27 @@ const completedTaskGroups: TaskGroup[] = [
 ]
 
 // 响应式状态
-const messages = ref<Array<{type: string, content: string, role?: string}>>([])
+const messages = ref<Array<{
+  type: string, 
+  content: string, 
+  role?: string,
+  isExpanded?: boolean
+}>>([])
 const userInput = ref('')
 const taskGroups = ref<TaskGroup[]>([])
 const chatContainer = ref<HTMLElement | null>(null)
 const isProcessing = ref(false)
 const showTaskDetail = ref(false)
 const selectedTask = ref<Task | null>(null)
+const showAlignButton = ref(false)
+const pendingResponse = ref('')
 
 // 常量定义
 const thinkingSteps = [
-  '正在分析店铺属性...',
-  '正在调研历史方案...',
-  '正在定制个性化策略...',
+  '正在分析店铺历史数据...',
+  '正在评估竞品活动方案...',
+  '正在制定个性化策略...',
+  '正在优化资源配置...',
   '正在生成执行计划...'
 ] as const
 
@@ -386,10 +623,40 @@ const scrollToBottom = async () => {
 const addThinkingMessage = async (step: string) => {
   messages.value.push({
     type: 'thinking',
-    content: step
+    content: step,
+    isExpanded: false
   })
   await scrollToBottom()
   await new Promise(resolve => setTimeout(resolve, 1000))
+}
+
+const sendNotification = () => {
+  if ('Notification' in window) {
+    Notification.requestPermission().then(permission => {
+      if (permission === 'granted') {
+        new Notification('双十一策划任务已完成', {
+          body: '您的双十一活动策划方案已经准备就绪，请查看详情。',
+          icon: '/vite.svg'
+        })
+      }
+    })
+  }
+}
+
+const startAlign = () => {
+  messages.value.push({
+    type: 'normal',
+    content: pendingResponse.value,
+    role: 'assistant'
+  })
+  scrollToBottom()
+  showAlignButton.value = false
+  
+  // 只添加双十一相关任务
+  const doubleElevenTasks = pendingTaskGroups.filter(group => 
+    group.title.includes('双十一') || group.description.includes('双十一')
+  )
+  taskGroups.value = [...doubleElevenTasks, ...taskGroups.value]
 }
 
 const sendMessage = async () => {
@@ -400,7 +667,8 @@ const sendMessage = async () => {
   // 添加用户消息
   messages.value.push({
     type: 'normal',
-    content: userInput.value
+    content: userInput.value,
+    role: 'user'
   })
   
   await scrollToBottom()
@@ -408,30 +676,72 @@ const sendMessage = async () => {
   // 清空输入
   userInput.value = ''
   
+  // 发送处理开始的提示消息
+  messages.value.push({
+    type: 'normal',
+    content: '好的，开始处理双十一策划任务，预计5分钟后完成，完成后将为您发送浏览器通知。',
+    role: 'assistant'
+  })
+  
+  await scrollToBottom()
+  
   // 模拟AI思考过程
   for (const step of thinkingSteps) {
     await addThinkingMessage(step)
   }
   
   // 将所有 thinking 消息转换为完成状态
-  messages.value = messages.value.map((msg: {type: string, content: string}) => 
-    msg.type === 'thinking' ? { ...msg, type: 'completed' } : msg
+  messages.value = messages.value.map(msg => 
+    msg.type === 'thinking' ? { 
+      ...msg, 
+      type: 'completed',
+      content: `✓ ${msg.content.replace('正在', '已完成')}`
+    } : msg
   )
   
   await scrollToBottom()
   
-  // 模拟AI响应
+  // 准备AI响应内容
+  pendingResponse.value = `根据分析，为您制定了完整的双十一活动方案：
+
+【主会场活动】
+1. 活动机制
+   - 限时秒杀：每整点开启，限量100件
+   - 满减优惠：满1000减100，最高减500
+   - 积分翻倍：下单可得2倍积分
+
+2. 直播运营
+   - 全天24场直播，重点场次：
+     * 0点开门红
+     * 早10点上班族专场
+     * 晚8点黄金档
+   - 主播资源配置
+   - 商品上架节奏
+
+3. 预热活动
+   - 10月25日：预售开启
+   - 10月31日：直播预告
+   - 11月1日：店铺改版上线
+
+4. 售后保障
+   - 客服扩充：临时增加50%人力
+   - 物流优化：与三家快递公司达成协议
+   - 退换无忧：7天无理由退换
+
+您可以在右侧任务列表中查看各个环节的具体执行计划。需要我重点说明某个环节吗？`
+
+  // 发送完成提示并显示对齐按钮
   messages.value.push({
     type: 'normal',
-    content: '根据您的需求，我已为您制定了一套完整的双十一活动方案。主要包含以下几个方向：\n\n1. 主会场筹备：设计主会场活动机制，包括限时秒杀、满减优惠、积分翻倍等玩法，并制定各时段的流量投放策略。\n\n2. 直播运营：安排全天24场直播，包括0点、早10点、晚8点等黄金时段的头部主播场次，以及商品上架节奏和价格策略。\n\n3. 售后保障：扩充客服团队运力，优化物流配送方案，确保双十一期间的服务质量。\n\n您可以在右侧任务列表中查看各个环节的具体执行计划。需要我重点说明某个环节吗？'
+    content: '已完成双十一策划任务策划，是否开始对齐？',
+    role: 'assistant'
   })
   
+  showAlignButton.value = true
   await scrollToBottom()
   
-  // 清空并重新设置任务列表，先添加待处理任务，再添加已完成任务
-  taskGroups.value = []
-  await nextTick()
-  taskGroups.value = [...pendingTaskGroups, ...completedTaskGroups]
+  // 发送浏览器通知
+  sendNotification()
   
   isProcessing.value = false
 }
@@ -477,6 +787,21 @@ const addTaskDetailToChat = (message: string) => {
   scrollToBottom()
 }
 
+const handleTaskCardClick = (taskTitle: string) => {
+  const task = pendingTaskGroups
+    .find(group => group.title.includes('双十一'))
+    ?.tasks.find(task => task.title === taskTitle)
+  
+  if (task) {
+    selectedTask.value = task
+    showTaskDetail.value = true
+  }
+}
+
+const toggleThinkingDetail = (index: number) => {
+  messages.value[index].isExpanded = !messages.value[index].isExpanded
+}
+
 // 生命周期钩子
 onMounted(() => {
   // 添加全局错误处理
@@ -491,12 +816,16 @@ onMounted(() => {
     ElMessage.error(`Promise 错误：${event.reason}`);
   });
 
-  // 初始化时只显示已完成的任务
-  taskGroups.value = [...completedTaskGroups]
-  
+  // 初始化时显示除双十一策划外的所有任务
+  const nonDoubleElevenTasks = [...pendingTaskGroups, ...completedTaskGroups].filter(group => 
+    !group.title.includes('双十一') && !group.description.includes('双十一')
+  )
+  taskGroups.value = nonDoubleElevenTasks
+
   messages.value.push({
     type: 'normal',
-    content: '您好！我是您的AI电商助手。距离双十一大促还有不到一个月的时间，我可以帮您制定活动方案、优化运营策略、协调资源调配等。请告诉我您需要什么帮助？'
+    content: '您好！我是您的AI电商助手。距离双十一大促还有不到一个月的时间，我可以帮您制定活动方案、优化运营策略、协调资源调配等。请告诉我您需要什么帮助？',
+    role: 'assistant'
   })
 
   // 添加版本信息
@@ -648,16 +977,81 @@ defineExpose({
 
 .thinking-message {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 8px;
+  padding: 12px;
+  background: rgba(64, 158, 255, 0.1);
+  border-radius: 8px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+  
+  &.completed {
+    background: rgba(103, 194, 58, 0.1);
+    
+    &:hover {
+      background: rgba(103, 194, 58, 0.15);
+    }
+    
+    .thinking-detail {
+      border-left: 2px solid var(--el-color-success);
+    }
+    
+    .step-title {
+      color: var(--el-color-success);
+    }
+  }
 }
 
-.thinking-icon {
-  animation: rotating 2s linear infinite;
+.thinking-message:hover {
+  background: rgba(64, 158, 255, 0.15);
+}
+
+.expand-icon {
+  margin-left: auto;
+  transition: transform 0.3s ease;
+}
+
+.expand-icon.is-expanded {
+  transform: rotate(180deg);
+}
+
+.thinking-detail {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 8px;
+  background: white;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.thinking-step {
+  margin-bottom: 16px;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.step-title {
+  font-weight: 500;
+  color: var(--el-color-primary);
+  margin-bottom: 4px;
+}
+
+.step-content {
+  color: var(--text-regular);
+  font-size: 14px;
+  line-height: 1.6;
 }
 
 .success-icon {
   color: var(--el-color-success);
+  margin-top: 2px;
 }
 
 .chat-input {
@@ -754,6 +1148,73 @@ defineExpose({
     &:hover {
       background: rgba(0, 0, 0, 0.2);
     }
+  }
+}
+
+.message-content {
+  white-space: pre-wrap;
+}
+
+.align-button {
+  margin-top: 12px;
+  text-align: center;
+}
+
+.task-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.task-intro {
+  color: var(--text-regular);
+  margin: 8px 0;
+  font-size: 14px;
+  line-height: 1.6;
+  padding: 0 4px;
+}
+
+.task-card {
+  background-color: var(--el-color-primary-light-9);
+  border-radius: 8px;
+  padding: 16px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  h4 {
+    margin: 0 0 12px;
+    color: var(--el-color-primary);
+    font-size: 16px;
+    font-weight: 600;
+  }
+}
+
+.task-card-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.task-card-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 14px;
+  
+  .item-title {
+    color: var(--el-color-primary-dark-2);
+    font-weight: 500;
+    min-width: 80px;
+  }
+  
+  .item-desc {
+    color: var(--text-regular);
+    flex: 1;
   }
 }
 </style> 
