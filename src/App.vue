@@ -286,30 +286,52 @@ const pendingTaskGroups: TaskGroup[] = [
     id: 2,
     title: '双十一战略规划',
     description: '双十一活动整体规划与执行',
+    cost: 100000,
+    expectedResults: [
+      'GMV提升50%',
+      '新客转化率提升30%',
+      '老客复购率提升20%'
+    ],
+    successRate: 85,
+    successFactors: [
+      '历史数据支持',
+      '竞品策略分析',
+      '用户调研反馈'
+    ],
     tasks: [
       {
         id: Date.now(),
         title: '主会场活动机制',
         status: '待确认',
         description: '设计主会场的活动机制和优惠方案',
+        cost: 50000,
+        expectedResults: [
+          'GMV提升50%',
+          '新客转化率提升30%',
+          '老客复购率提升20%'
+        ],
+        successRate: 85,
+        successFactors: [
+          '历史数据支持',
+          '竞品策略分析',
+          '用户调研反馈'
+        ],
         subtasks: [
           {
             id: Date.now() + 1,
             title: '限时秒杀设置',
             status: '待确认',
-            description: '每整点开启秒杀活动，限量100件'
+            description: '每整点开启秒杀活动，限量100件',
+            cost: 15000,
+            expectedResults: ['秒杀转化率达到30%']
           },
           {
             id: Date.now() + 2,
             title: '满减优惠方案',
             status: '待确认',
-            description: '设置满1000减100，最高减500的优惠'
-          },
-          {
-            id: Date.now() + 3,
-            title: '积分奖励机制',
-            status: '待确认',
-            description: '下单可得2倍积分'
+            description: '设置满1000减100，最高减500的优惠',
+            cost: 20000,
+            expectedResults: ['客单价提升20%']
           }
         ]
       },
@@ -318,24 +340,42 @@ const pendingTaskGroups: TaskGroup[] = [
         title: '直播运营计划',
         status: '待确认',
         description: '策划全天24场直播的排期和资源配置',
+        cost: 80000,
+        expectedResults: [
+          '直播间总流量提升100%',
+          '直播转化率达到8%',
+          '粉丝增长10万+'
+        ],
+        successRate: 75,
+        successFactors: [
+          '优质主播资源',
+          '爆品组货策略',
+          '直播间氛围营造'
+        ],
         subtasks: [
           {
             id: Date.now() + 101,
-            title: '重点场次安排',
+            title: '主播排期安排',
             status: '待确认',
-            description: '0点开门红、早10点上班族专场、晚8点黄金档'
+            description: '安排全天24场直播的主播档期',
+            cost: 30000,
+            expectedResults: ['主播档期排满率达到95%']
           },
           {
             id: Date.now() + 102,
-            title: '主播排期',
+            title: '商品场次规划',
             status: '待确认',
-            description: '安排主播档期和直播间资源'
+            description: '规划各场直播的商品上架节奏',
+            cost: 25000,
+            expectedResults: ['场均销售转化率达到5%']
           },
           {
             id: Date.now() + 103,
-            title: '商品上架计划',
+            title: '直播间氛围布置',
             status: '待确认',
-            description: '制定商品上架节奏和库存预警机制'
+            description: '设计直播间视觉和互动玩法',
+            cost: 25000,
+            expectedResults: ['直播间互动率提升50%']
           }
         ]
       },
@@ -344,24 +384,42 @@ const pendingTaskGroups: TaskGroup[] = [
         title: '预热活动安排',
         status: '待确认',
         description: '制定双十一预热期间的活动节奏',
+        cost: 30000,
+        expectedResults: [
+          '预售转化率达到30%',
+          '加购商品数增长40%',
+          '品牌声量提升50%'
+        ],
+        successRate: 90,
+        successFactors: [
+          '精准投放策略',
+          '预售优惠力度',
+          '社媒矩阵传播'
+        ],
         subtasks: [
           {
             id: Date.now() + 201,
-            title: '预售活动',
+            title: '预售商品筛选',
             status: '待确认',
-            description: '10月25日开启预售活动'
+            description: '筛选和设置预售商品清单',
+            cost: 10000,
+            expectedResults: ['预售商品转化率达到25%']
           },
           {
             id: Date.now() + 202,
-            title: '直播预告',
+            title: '社媒预热传播',
             status: '待确认',
-            description: '10月31日发布直播预告'
+            description: '制定社交媒体预热传播方案',
+            cost: 12000,
+            expectedResults: ['预热期间品牌声量提升30%']
           },
           {
             id: Date.now() + 203,
-            title: '店铺改版',
+            title: '店铺视觉改版',
             status: '待确认',
-            description: '11月1日上线双十一主题店铺改版'
+            description: '设计和实施店铺双十一主题改版',
+            cost: 8000,
+            expectedResults: ['店铺浏览转化率提升20%']
           }
         ]
       },
@@ -370,24 +428,42 @@ const pendingTaskGroups: TaskGroup[] = [
         title: '售后保障计划',
         status: '待确认',
         description: '制定完善的售后服务保障方案',
+        cost: 40000,
+        expectedResults: [
+          '客诉率控制在1%以内',
+          '售后响应时间缩短50%',
+          '物流时效提升30%'
+        ],
+        successRate: 95,
+        successFactors: [
+          '客服团队扩充',
+          '物流资源储备',
+          '系统自动化升级'
+        ],
         subtasks: [
           {
             id: Date.now() + 301,
-            title: '客服人力扩充',
+            title: '客服团队扩充',
             status: '待确认',
-            description: '临时增加50%客服人力'
+            description: '招募和培训临时客服团队',
+            cost: 15000,
+            expectedResults: ['客服响应时间缩短至30秒内']
           },
           {
             id: Date.now() + 302,
-            title: '物流优化',
+            title: '物流仓储优化',
             status: '待确认',
-            description: '与三家快递公司达成配送协议'
+            description: '优化仓储布局和发货流程',
+            cost: 15000,
+            expectedResults: ['发货时效提升40%']
           },
           {
             id: Date.now() + 303,
-            title: '退换货政策',
+            title: '售后系统升级',
             status: '待确认',
-            description: '执行7天无理由退换货政策'
+            description: '升级售后工单和退换货系统',
+            cost: 10000,
+            expectedResults: ['工单处理效率提升50%']
           }
         ]
       }
@@ -403,18 +479,44 @@ const pendingTaskGroups: TaskGroup[] = [
         title: '跌幅原因定位',
         status: '待确认',
         description: '分析近期销售下滑原因并制定改善方案',
+        cost: 20000,
+        expectedResults: [
+          '定位核心问题点3-5个',
+          '制定改善方案并实施',
+          '恢复至正常销售水平'
+        ],
+        successRate: 85,
+        successFactors: [
+          '多维度数据分析',
+          '竞品表现对比',
+          '用户反馈收集'
+        ],
         subtasks: [
           {
             id: Date.now() + 301,
             title: '数据异常分析',
             status: '待确认',
-            description: '定位销售下滑的具体环节和原因'
+            description: '定位销售下滑的具体环节和原因',
+            cost: 8000,
+            expectedResults: ['识别异常指标并定位根因'],
+            successRate: 90,
+            phaseResults: {
+              completed: ['数据收集', '指标分析'],
+              pending: ['问题定位', '方案制定']
+            }
           },
           {
             id: Date.now() + 302,
             title: '竞品对比分析',
             status: '待确认',
-            description: '分析竞品表现及市场变化'
+            description: '分析竞品表现及市场变化',
+            cost: 12000,
+            expectedResults: ['完成TOP5竞品分析报告'],
+            successRate: 85,
+            phaseResults: {
+              completed: ['竞品清单确定', '数据采集'],
+              pending: ['对比分析', '报告撰写']
+            }
           }
         ]
       },
@@ -423,18 +525,45 @@ const pendingTaskGroups: TaskGroup[] = [
         title: '用户体验优化',
         status: '待确认',
         description: '优化店铺用户体验，提升购物体验',
+        cost: 35000,
+        expectedResults: [
+          '用户满意度提升20%',
+          '购物转化率提升15%',
+          '客单价提升10%',
+          '复购率提升25%'
+        ],
+        successRate: 80,
+        successFactors: [
+          '专业的体验设计',
+          '充分的用户调研',
+          'AB测试验证'
+        ],
         subtasks: [
           {
             id: Date.now() + 401,
             title: '用户反馈分析',
             status: '待确认',
-            description: '收集和分析用户反馈意见'
+            description: '收集和分析用户反馈意见',
+            cost: 15000,
+            expectedResults: ['完成1000份用户调研'],
+            successRate: 85,
+            phaseResults: {
+              completed: ['调研问卷设计', '样本筛选'],
+              pending: ['数据收集', '分析报告']
+            }
           },
           {
             id: Date.now() + 402,
             title: '体验优化方案',
             status: '待确认',
-            description: '制定用户体验优化方案'
+            description: '制定用户体验优化方案',
+            cost: 20000,
+            expectedResults: ['输出体验优化方案并执行'],
+            successRate: 75,
+            phaseResults: {
+              completed: ['现状评估', '问题识别'],
+              pending: ['方案设计', '效果验证']
+            }
           }
         ]
       }
@@ -679,7 +808,7 @@ const sendMessage = async () => {
   // 发送处理开始的提示消息
   messages.value.push({
     type: 'normal',
-    content: '好的，开始处理双十一策划任务，预计5分钟后完成，完成后将为您发送浏览器通知。',
+    content: '好的，开始处理双十一策划任务，预计5分钟后完成。我已经在您的日历中添加了以下日程：\n\n📅 双十一活动策划会议\n⏰ 时间：今天 14:00-15:00\n📍 线上会议\n👥 参与人：店铺负责人、运营主管\n\n完成后我会通过浏览器发送通知，请留意。',
     role: 'assistant'
   })
   
@@ -750,10 +879,20 @@ const confirmTask = (task: Task) => {
   task.status = '进行中'
   ElMessage.success('任务已确认，开始执行')
   
-  // 模拟任务完成
+  // 模拟任务执行完成,进入review阶段
   setTimeout(() => {
-    task.status = '已完成'
-    ElMessage.success('任务已完成')
+    task.status = '待review'
+    // 添加实际成本(在预算成本的90%-110%范围内浮动)
+    if (task.cost) {
+      const variance = task.cost * (Math.random() * 0.2 - 0.1) // -10% 到 +10%
+      task.actualCost = Math.round(task.cost + variance)
+    }
+    // 添加阶段性结果
+    task.phaseResults = {
+      completed: ['需求分析', '方案设计', '资源调配'],
+      pending: ['效果评估', '数据分析']
+    }
+    ElMessage.success('任务执行完成，请进行评审')
   }, 3000)
 }
 
@@ -770,13 +909,14 @@ const handleTaskClick = (task: Task) => {
   showTaskDetail.value = true
 }
 
-const getStatusType = (status: string): 'success' | 'warning' | 'primary' => {
-  const map: Record<string, 'success' | 'warning' | 'primary'> = {
+const getStatusType = (status?: TaskStatus): 'success' | 'warning' | 'primary' => {
+  const map: Record<TaskStatus, 'success' | 'warning' | 'primary'> = {
     '待确认': 'warning',
     '进行中': 'primary',
+    '待review': 'warning',
     '已完成': 'success'
   }
-  return map[status]
+  return status ? map[status] : 'primary'
 }
 
 const addTaskDetailToChat = (message: string) => {
